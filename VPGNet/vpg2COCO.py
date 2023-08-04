@@ -130,7 +130,7 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
     images = []
     for split in [("train", train_idx), ("test", test_idx)]:
         # create folder for RGB images of VPGNet
-        out_image_path = os.path.join(out_path, split[0] + "/images")
+        out_image_path = os.path.join(out_path, "data/" + split[0] + "/images")
         if not os.path.exists(out_image_path):
             os.makedirs(out_image_path)
         # create coco_format for train and test split
@@ -160,7 +160,7 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
             # create image info, scene info are inserted here!!!!!!
             image_anno = create_image_annotation(
                 # files[img_idx][1], w, h, f"{image_id:06d}", scene
-                f"{image_id:06d}" + ".jpg", w, h, f"{image_id:06d}", scene
+                f"data/{split[0]}/images/{image_id:06d}" + ".jpg", w, h, f"{image_id:06d}", scene
             )
             images.append(image_anno)
 
