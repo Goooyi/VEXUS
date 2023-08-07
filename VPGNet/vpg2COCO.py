@@ -124,11 +124,11 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
     }
     multipoly_category = set()
     multipoly_img_count = 0
-    annotation_id = 0
-    image_id = 0
-    annotations = []
-    images = []
     for split in [("train", train_idx), ("test", test_idx)]:
+        annotation_id = 0
+        image_id = 0
+        annotations = []
+        images = []
         # create folder for RGB images of VPGNet
         out_image_path = os.path.join(out_path, "data/" + split[0] + "/images")
         if not os.path.exists(out_image_path):
@@ -138,8 +138,6 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
         # create anno section
         coco_format["categories"] = create_category_annotation(category_ids)
         for img_idx in tqdm(split[1]):
-            # if img_idx > 50:
-            #     continue
             data = scipy.io.loadmat(files[img_idx][0])
             rgb_seg_vp = data["rgb_seg_vp"]
             rgb = rgb_seg_vp[:, :, 0:3]
@@ -154,7 +152,7 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
 
             scene = files[img_idx][0].split("/")[-3]
             scene_count[split[0] + "_" + scene] += 1
-            w, h, _ = rgb.shape
+            h, w, _ = rgb.shape
             # save RGB image
             cv2.imwrite(os.path.join(out_image_path, f"{image_id:06d}" + ".jpg"), rgb)
             # create image info, scene info are inserted here!!!!!!
