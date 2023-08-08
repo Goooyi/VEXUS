@@ -29,7 +29,7 @@ from utils.yolov5seg2yolov5det import *
 
 # read the .txt fiels of yolov5 segmentation format and convert it to yolov5 detection format
 def yolov5seg2det(input_folder, output_folder):
-    output_folder = osp.join(output_folder, "labels_det")
+    output_folder = osp.join(output_folder, "labels")
     # make folder for output_folder
     if not osp.exists(output_folder):
         os.makedirs(output_folder)
@@ -46,6 +46,6 @@ def yolov5seg2det(input_folder, output_folder):
                         f.write(line + "\n")
 
 if __name__ == "__main__":
-    input_folder = "/home/yi/dev/VEXUS/RM_VPG_yolo/test/labels"
-    output_folder = "/home/yi/dev/VEXUS/RM_VPG_yolo/test"
+    input_folder = "/home/yi/dev/VEXUS/RM_VPG_yolo/train/labels"
+    output_folder = "/home/yi/dev/VEXUS/RM_VPG_yoloDet/train"
     yolov5seg2det(input_folder, output_folder)
