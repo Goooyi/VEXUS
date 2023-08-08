@@ -1,3 +1,5 @@
 .vscode
 RM_VPG_COCO
+RM_VPG_yolo
+RM_VPG_yoloDet
 __pycache__
