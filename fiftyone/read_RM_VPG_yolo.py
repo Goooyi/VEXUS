@@ -5,18 +5,11 @@ name = "RM_VPG_yolo"
 # data_path = "D:\\Dataset\\RM_VPG_yoloDet"
 # labels_path = "D:\\Dataset\\RM_VPG_yoloDet\\train.json"
 
-dataset_dir = "D:\\Dataset\\RM_VPG_yoloDet"
-
-# # Import dataset by explicitly providing paths to the source media and labels
-# dataset = fo.Dataset.from_dir(
-#     dataset_type=fo.types.COCODetectionDataset,
-#     data_path=data_path,
-#     labels_path=labels_path,
-#     name=name,
-# )
+dataset_dir = "/code/dataset/RM_VPG_TRoM_merge_yoloDet"
+# dataset_dir = "/code/dataset//RM_VPG_yoloDet"
 
 # The splits to load
-splits = ["train"]
+splits = ["val"]
 
 # Load the dataset, using tags to mark the samples in each split
 dataset = fo.Dataset(name)

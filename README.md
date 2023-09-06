@@ -7,5 +7,5 @@ This repository was created to convert diverse datasets with unique annotations 
 ## Dependency
 
 ```
-pip install numpy opencv-python scipy tqdm Pillow scikit-image shapely
+pip install numpy opencv-python scipy tqdm Pillow scikit-image shapely pyyaml fiftyone
 ```
