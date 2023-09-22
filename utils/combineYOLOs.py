@@ -49,9 +49,6 @@ name2id = {
     "straight-plus-left": "6",
     "straight-plus-right": "7",
     "left-and-right": "8",
-    "straight-plus-left" : "9",
-    "straight-plus-right" : "10",
-    "left-and-right" : "11"
 }
 
 id2name = {v: k for k, v in name2id.items()}
