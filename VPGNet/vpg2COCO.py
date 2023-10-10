@@ -82,7 +82,7 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
     # set VPGNet train/val split to 9:1
     np.random.seed(42)
     rnd = np.random.rand(1, len(files))
-    train_idx, test_idx = (rnd <= 0.9).nonzero()[1], (rnd > 0.9).nonzero()[1]
+    train_idx, val_idx = (rnd <= 0.9).nonzero()[1], (rnd > 0.9).nonzero()[1]
     # count scene scenarios numbers in train/test
     scene_count = {
         "train_scene_1": 0,
@@ -122,15 +122,16 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
         "test_arrow-u-turn": 0,
         "test_across-walk": 0,
     }
+
     multipoly_category = set()
     multipoly_img_count = 0
-    for split in [("train", train_idx), ("test", test_idx)]:
+    for split in [("train", train_idx), ("val", val_idx)]:
         annotation_id = 0
         image_id = 0
         annotations = []
         images = []
         # create folder for RGB images of VPGNet
-        out_image_path = os.path.join(out_path, "data/" + split[0] + "/images")
+        out_image_path = os.path.join(out_path, split[0] + "/images")
         if not os.path.exists(out_image_path):
             os.makedirs(out_image_path)
         # create coco_format for train and test split
@@ -158,7 +159,7 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
             # create image info, scene info are inserted here!!!!!!
             image_anno = create_image_annotation(
                 # files[img_idx][1], w, h, f"{image_id:06d}", scene
-                f"data/{split[0]}/images/{image_id:06d}" + ".jpg", w, h, f"{image_id:06d}", scene
+                f"{split[0]}/images/{image_id:06d}" + ".jpg", w, h, f"{image_id:06d}", scene
             )
             images.append(image_anno)
 
@@ -218,7 +219,9 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
             annotations,
             annotation_id,
         )
-        out_file = os.path.join(out_path, f"{split[0]}.json")
+        out_file = os.path.join(out_path, f"annotations/{split[0]}.json")
+        if not os.path.exists(os.path.join(out_path, f"annotations")):
+            os.makedirs(os.path.join(out_path, f"annotations"))
         with open(out_file, "w") as f:
             json.dump(coco_format, f)
         print(
