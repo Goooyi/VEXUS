@@ -41,32 +41,32 @@ def parse_args():
 
 # Label ids of the dataset
 category_ids = {
-    "stop-line": 9,
-    "arrow-left": 10,
-    "arrow-right": 11,
-    "arrow-go-straight": 12,
-    "arrow-u-turn": 13,
-    "across-walk": 15,
+    "stop-line": 0,
+    "arrow-left": 1,
+    "arrow-right": 2,
+    "arrow-go-straight": 3,
+    "arrow-u-turn": 4,
+    "across-walk": 5,
 }
 
 id_to_category = {
-    9: "stop-line",
-    10: "arrow-left",
-    11: "arrow-right",
-    12: "arrow-go-straight",
-    13: "arrow-u-turn",
-    15: "across-walk",
+    0: "stop-line",
+    1: "arrow-left",
+    2: "arrow-right",
+    3: "arrow-go-straight",
+    4: "arrow-u-turn",
+    5: "across-walk",
 }
 
 # TODO: change to use unified distributed HSV format
 # Define which colors match which categories in the images
 category_colors = {
-    "(255, 0, 0)": 9,  # stop-line
-    "(255, 255, 0)": 10,  # arrow-left
-    "(128, 0, 255)": 11,  # arrow-right
-    "(255, 128, 0)": 12,  # arrow-go-straight
-    "(0, 0, 255)": 13,  # arrow-u-turn
-    "(0, 255, 0)": 15,  # across-walk
+    "(255, 0, 0)": 0,  # stop-line
+    "(255, 255, 0)": 1,  # arrow-left
+    "(128, 0, 255)": 2,  # arrow-right
+    "(255, 128, 0)": 3,  # arrow-go-straight
+    "(0, 0, 255)": 4,  # arrow-u-turn
+    "(0, 255, 0)": 5,  # across-walk
 }
 
 def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
@@ -89,10 +89,10 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
         "train_scene_2": 0,
         "train_scene_3": 0,
         "train_scene_4": 0,
-        "test_scene_1": 0,
-        "test_scene_2": 0,
-        "test_scene_3": 0,
-        "test_scene_4": 0,
+        "val_scene_1": 0,
+        "val_scene_2": 0,
+        "val_scene_3": 0,
+        "val_scene_4": 0,
     }
     category_image_count = {
         "train_stop-line": 0,
@@ -101,12 +101,12 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
         "train_arrow-go-straight": 0,
         "train_arrow-u-turn": 0,
         "train_across-walk": 0,
-        "test_stop-line": 0,
-        "test_arrow-left": 0,
-        "test_arrow-right": 0,
-        "test_arrow-go-straight": 0,
-        "test_arrow-u-turn": 0,
-        "test_across-walk": 0,
+        "val_stop-line": 0,
+        "val_arrow-left": 0,
+        "val_arrow-right": 0,
+        "val_arrow-go-straight": 0,
+        "val_arrow-u-turn": 0,
+        "val_across-walk": 0,
     }
     category_instance_count = {
         "train_stop-line": 0,
@@ -115,12 +115,12 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
         "train_arrow-go-straight": 0,
         "train_arrow-u-turn": 0,
         "train_across-walk": 0,
-        "test_stop-line": 0,
-        "test_arrow-left": 0,
-        "test_arrow-right": 0,
-        "test_arrow-go-straight": 0,
-        "test_arrow-u-turn": 0,
-        "test_across-walk": 0,
+        "val_stop-line": 0,
+        "val_arrow-left": 0,
+        "val_arrow-right": 0,
+        "val_arrow-go-straight": 0,
+        "val_arrow-u-turn": 0,
+        "val_across-walk": 0,
     }
 
     multipoly_category = set()
@@ -219,7 +219,7 @@ def convert_vpgnet_to_coco(dataSetDir, out_path, iscrowd=0):
             annotations,
             annotation_id,
         )
-        out_file = os.path.join(out_path, f"annotations/{split[0]}.json")
+        out_file = os.path.join(out_path, f"annotations/vpg_{split[0]}.json")
         if not os.path.exists(os.path.join(out_path, f"annotations")):
             os.makedirs(os.path.join(out_path, f"annotations"))
         with open(out_file, "w") as f:
